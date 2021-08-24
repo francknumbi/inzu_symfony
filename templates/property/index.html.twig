@@ -4,17 +4,17 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container mt-4">
         <h1>Voir tous nos biens</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at augue pellentesque, molestie felis eget,
-            semper eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-            Integer id lectus risus. Sed egestas enim ex, ut vehicula turpis tincidunt ac.
-            Aliquam pretium blandit nibh, sit amet tincidunt nisl varius ac. Donec vestibulum sed erat sed sagittis.
-            Fusce molestie odio id quam eleifend sodales.
-        </p>
+        <div class="row">
+            {% for property in properties %}
+                 <div class="col-md-4">
+                        {% include 'property/property.html.twig' %}
+                 </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ knp_pagination_render(properties) }}
+        </div>
     </div>
-
-
-
 {% endblock  %}
