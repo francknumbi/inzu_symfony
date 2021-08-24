@@ -3,6 +3,7 @@
     namespace App\Controller;
 
     use App\Entity\Property;
+    use App\Entity\PropertySearch;
     use App\Repository\PropertyRepository;
     use Doctrine\ORM\EntityManagerInterface;
     //use Doctrine\Persistence\ObjectManager;
@@ -40,6 +41,9 @@
          */
         public function index():Response
         {
+            $search = new PropertySearch();
+            $form= $this->createForm(PropertySearch::class);
+            //$form->handleRequest($requ)
             $property = $this->repository->findAllVisible();
             //$property[0]->setSold(true);
             //$this->entityManager->flush();
