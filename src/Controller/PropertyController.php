@@ -55,11 +55,6 @@
                 12
             );
 
-
-            //$property = $this->repository->findAllVisibleQuery();
-
-            //$property[0]->setSold(true);
-            //$this->entityManager->flush();
             return $this->render('property/index.html.twig',[
                 'current_menu'=>'properties',
                 'properties'=> $properties,
