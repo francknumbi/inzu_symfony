@@ -2,6 +2,7 @@
 
     namespace App\Controller\Admin;
     
+    use App\Entity\Option;
     use App\Entity\Property;
     use App\Form\PropertType;
     use App\Repository\PropertyRepository;
@@ -68,6 +69,9 @@
         #[Route(path: '/admin/property/{id}', name:"admin.property.edit"  , methods: ['GET','POST'])]
         public function edit(Property $property, Request $request):Response
         {
+            //$option = new Option();
+            //$property->addOption($option);
+
             $form = $this->createForm(PropertType::class,$property);
             $form->handleRequest($request);
 
