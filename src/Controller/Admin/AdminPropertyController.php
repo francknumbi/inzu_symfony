@@ -12,6 +12,7 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
 
+
     class AdminPropertyController extends AbstractController
     {
 
@@ -69,8 +70,7 @@
         #[Route(path: '/admin/property/{id}', name:"admin.property.edit"  , methods: ['GET','POST'])]
         public function edit(Property $property, Request $request):Response
         {
-            //$option = new Option();
-            //$property->addOption($option);
+
 
             $form = $this->createForm(PropertType::class,$property);
             $form->handleRequest($request);
