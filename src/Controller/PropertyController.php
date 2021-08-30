@@ -2,8 +2,11 @@
 
     namespace App\Controller;
 
+    use App\Notification\ContactNotification;
+    use App\Entity\Contact;
     use App\Entity\Property;
     use App\Entity\PropertySearch;
+    use App\Form\ContactType;
     use App\Form\PropertySearchType;
     use App\Repository\PropertyRepository;
     use Doctrine\ORM\EntityManagerInterface;
@@ -68,8 +71,9 @@
          */
 
         //public function show($slug, $id): Response
-        public function show(Property $property, $slug): Response
+        public function show(Property $property, $slug, Request $request,ContactNotification $notification): Response
         {
+
             if ($property->getSlug() !== $slug){
                 return $this->redirectToRoute('property.show', [
                    'id'=>$property->getId(),
@@ -77,10 +81,26 @@
 
                 ], 301);
             }
-            //$this->property = $this->repository->find($id);
+            $contact = new Contact();
+            $contact->setProperty($property);
+            $form = $this->createForm(ContactType::class,$contact);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $notification->notify($contact);
+                $this->addFlash('success', 'votre email a bien ete envoye');
+                /*return $this->redirectToRoute('property.show',[
+                   'id'=>$property->getId(),
+                   'slug'=>$property->getSlug(),
+                    301
+                ]);*/
+            }
+
             return $this->render('property/show.html.twig',[
                 'property'=> $property,
-                'current_menu'=>'properties'
+                'current_menu'=>'properties',
+                'form'=>$form->createView()
             ]);
         }
 
